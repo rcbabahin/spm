@@ -1,6 +1,7 @@
 export const handleGetAllDevices = (db) => (req, res) => {
     db.select('*').from('devices')
     .then(devices => {
+        console.log('request done')
         res.json(devices)
     })
     .catch(err => res.status(400).json('Error getting all devices'))

@@ -1,9 +1,12 @@
 import express from "express";
 import knex from "knex";
 import cors from "cors";
+import bcrypt from "bcryptjs";
 import 'dotenv/config.js';
 
 import { handleRegister } from "./controllers/register.js";
+import { handleSignup } from "./controllers/singup.js";
+import { handleSignin } from "./controllers/signin.js";
 import { 
     handleDeleteDevice, 
     handleGetAllDevices, 
@@ -43,6 +46,8 @@ app.get('/measurements', handleGetAllMeasurements(db));
 app.get('/measurement/:id', handleGetMeasurementById(db));
 
 app.post('/register', handleRegister(db));
+app.post('/signup', handleSignup(db, bcrypt));
+app.post('/signin', handleSignin(db, bcrypt));
 
 app.listen(PORT, () => {
     console.log(`app is running on port ${PORT}`)
